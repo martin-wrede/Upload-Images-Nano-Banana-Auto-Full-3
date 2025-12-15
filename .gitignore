@@ -25,5 +25,5 @@ dist/
 *.sw?
 
 *.env
-*.toml
+# *.toml
 .wrangler
