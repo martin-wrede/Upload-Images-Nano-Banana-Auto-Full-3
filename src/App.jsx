@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 const PACKAGES = {
@@ -24,7 +24,16 @@ function App() {
   // Get package from URL query parameter
   const queryParams = new URLSearchParams(window.location.search);
   const packageType = queryParams.get('package');
+  const queryEmail = queryParams.get('email');
   const currentPackage = PACKAGES[packageType] || PACKAGES.default;
+
+  // If someone opens the page with ?email=..., redirect to the download page endpoint
+  useEffect(() => {
+    if (queryEmail) {
+      const encoded = encodeURIComponent(queryEmail);
+      window.location.href = `/get-download?email=${encoded}`;
+    }
+  }, [queryEmail]);
 
   const [selectedImageIndex, setSelectedImageIndex] = useState("");
 
